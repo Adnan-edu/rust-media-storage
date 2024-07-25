@@ -4,6 +4,22 @@ enum Media {
     Movie { title: String, director: String },
     Audiobook { title: String },
 }
+impl Media {
+    fn description(&self) -> String {
+        //Pattern matching to handle enum to find the type
+        match self {
+            Media::Book { title, author } => {
+                format!("Book: {} {}", title, author)
+            }
+            Media::Movie { title, director } => {
+                format!("Movie: {} {}", title, director)
+            }
+            Media::Audiobook { title } => {
+                format!("Audiobook: {}", title)
+            }
+        }
+    }
+}
 fn print_media(media: Media) {
     println!("{:#?}", media);
 }
@@ -19,7 +35,7 @@ fn main() {
         title: String::from("Good Book"),
         author: String::from("Good Author"),
     };
-    print_media(good_movie);
-    print_media(good_book);
-    print_media(audiobook);
+    println!("{:#?}", good_book.description());
+    println!("{:#?}", good_movie.description());
+    println!("{:#?}", audiobook.description());
 }
