@@ -64,6 +64,20 @@ fn main() {
     catalog.add(good_book);
     catalog.add(podcast);
     catalog.add(placeholder);
-
-    println!("{:#?}", catalog);
+    match catalog.items.get(0) {
+        Option::Some(value) => {
+            println!("{:#?}", value);
+        }
+        Option::None => {
+            println!("Nothing at that index");
+        }
+    }
+    match catalog.items.get(10) {
+        Some(value) => {
+            println!("{:#?}", value);
+        }
+        None => {
+            println!("Nothing at that index");
+        }
+    }
 }
