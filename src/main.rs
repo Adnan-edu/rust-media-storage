@@ -75,18 +75,16 @@ fn main() {
     catalog.add(podcast);
     catalog.add(placeholder);
 
-    match catalog.get_by_index(1) {
-        Some(value) => {
-            println!("Item: {:#?}", value);
-        }
-        None => {
-            println!("No value here!");
-        }
-    }
+    let item = catalog.get_by_index(10);
 
-    // if let Some(value) = catalog.get_by_index(0) {
-    //     println!("Item in pattern match: {:#?}", value);
-    // } else {
-    //     println!("No value!!!");
-    // }
+    let placeholder = Media::Placeholder;
+    //unwrap_or => Some: returns value, None: returns the provided default value/placeholder
+    println!("{:#?}", item.unwrap_or(&placeholder));
+
+    //Unwrap => Some: returns value, None: panics - Use: Debugging
+    //println!("{:#?}", item.unwrap());
+
+    //Expect => Some: returns value, None: panics with error message
+    //Use Expect => When we want to crash if there is no value - Use case checking of env variable presence in program
+    //println!("{:#?}", item.expect("Expected there to be an item here!"));
 }
