@@ -39,6 +39,20 @@ impl Catalog {
     fn add(&mut self, media: Media) {
         self.items.push(media);
     }
+    fn get_by_index(&self, index: usize) -> MightHaveAValue {
+        if self.items.len() > index {
+            //We have something to return
+            MightHaveAValue::ThereIsAValue(&self.items[index])
+        } else {
+            //Index out of bound
+            MightHaveAValue::NoValueAvailable
+        }
+    }
+}
+
+enum MightHaveAValue<'a> {
+    ThereIsAValue(&'a Media),
+    NoValueAvailable,
 }
 fn main() {
     let audiobook = Media::Audiobook {
@@ -64,20 +78,19 @@ fn main() {
     catalog.add(good_book);
     catalog.add(podcast);
     catalog.add(placeholder);
-    match catalog.items.get(0) {
-        Option::Some(value) => {
-            println!("{:#?}", value);
-        }
-        Option::None => {
-            println!("Nothing at that index");
-        }
-    }
-    match catalog.items.get(10) {
-        Some(value) => {
-            println!("{:#?}", value);
-        }
-        None => {
-            println!("Nothing at that index");
-        }
+
+    // match catalog.get_by_index(990) {
+    //     MightHaveAValue::ThereIsAValue(value) => {
+    //         println!("Item: {:#?}", value);
+    //     }
+    //     MightHaveAValue::NoValueAvailable => {
+    //         println!("No value here!");
+    //     }
+    // }
+
+    if let MightHaveAValue::ThereIsAValue(value) = catalog.get_by_index(0) {
+        println!("Item in pattern match: {:#?}", value);
+    } else {
+        println!("No value!!!");
     }
 }
